@@ -1,0 +1,82 @@
+let productList = fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/product");
+// section for clothing
+const clothing = document.createElement("h2");
+clothing.innerHTML = "Clothing For Men and Women";
+document.body.appendChild(clothing);
+
+const clothingContainer = document.createElement("div");
+clothingContainer.classList.add("clothingcontainer");
+document.body.appendChild(clothingContainer);
+
+// section for accessories
+const accessories = document.createElement("h2");
+accessories.innerHTML = "Accessories For Men and Women";
+document.body.appendChild(accessories);
+
+const accessoriesContainer = document.createElement("div");
+accessoriesContainer.classList.add("accessoriescontainer");
+document.body.appendChild(accessoriesContainer);
+
+// fetching data from api
+
+productList
+  .then((resp) => resp.json())
+  .then((responseData) => {
+    responseData.map((product) => {
+      let box = document.createElement("div");
+      box.classList.add("box");
+      box.id = product.id;
+      let productDescription = document.createElement("div");
+      productDescription.classList.add("productdesc");
+      box.appendChild(productDescription);
+
+      let link = document.createElement("a");
+      link.href = `productdetail.html?id=${product.id}`;
+
+      if (product.isAccessory === false) {
+        //creating box for each product
+        clothingContainer.appendChild(link);
+        clothingContainer.appendChild(box);
+        addProduct();
+      } else {
+        //creating box for each product
+        accessoriesContainer.appendChild(box);
+        addProduct();
+      }
+
+      // common function to add products
+      function addProduct() {
+        // fetching required product field details
+        let productImg = document.createElement("img");
+        let productTitle = document.createElement("h3");
+        let productBrand = document.createElement("h5");
+        let productPrice = document.createElement("h6");
+        productImg.src = product.preview;
+
+        // product.photos[Math.floor(Math.random() * product.photos.length)];
+        productTitle.innerText = product.name;
+        productBrand.innerText = product.brand;
+        productPrice.innerText = `Rs ${product.price}`;
+
+        // outer container for box
+        let boxContainer = document.createElement("div");
+        boxContainer.className = "boxcontainer";
+
+        box.appendChild(boxContainer);
+        boxContainer.appendChild(link);
+        link.appendChild(productDescription);
+        // adding elements to box
+        link.prepend(productImg);
+        productDescription.appendChild(productTitle);
+        productDescription.appendChild(productBrand);
+        productDescription.appendChild(productPrice);
+      }
+    });
+    let cart = document.querySelector("#count");
+    cart.innerText = `count: ${
+      JSON.parse(localStorage.getItem("cart")).length
+    }`;
+  })
+  .catch((e) => {
+    console.log(e);
+  });
