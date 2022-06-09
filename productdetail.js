@@ -14,7 +14,9 @@ if (localStorage.getItem("cart") == null || localStorage.getItem == "") {
 
 let container = document.createElement("div");
 container.className = "container";
-document.body.appendChild(container);
+
+const mainContent = document.querySelector("#maincontent");
+mainContent.prepend(container);
 
 let leftsec = document.createElement("div");
 leftsec.className = "leftsec";
@@ -109,24 +111,22 @@ productData
     // }
 
     button.addEventListener("click", () => {
-      console.log(JSON.parse(localStorage.getItem("cart")));
-      console.log(productData);
-      console.log(
-        JSON.parse(localStorage.getItem("cart")).includes(productData)
-      );
+      // console.log(JSON.parse(localStorage.getItem("cart")));
+      // console.log(productData);
+      // console.log(
+      //   JSON.parse(localStorage.getItem("cart")).includes(productData)
+      // );
       cartItem.push(productData);
+      console.log(productData);
+
       count++;
       //   console.log(cartItem);
       localStorage.setItem("cart", JSON.stringify(cartItem));
-      cart.innerText = `count: ${
-        JSON.parse(localStorage.getItem("cart")).length
-      }`;
+      cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
       //   productData.qty = count;
-      //   console.log(JSON.parse(localStorage.getItem("cart")).length);
+      console.log(JSON.parse(localStorage.getItem("cart")));
     });
-    cart.innerText = `count: ${
-      JSON.parse(localStorage.getItem("cart")).length
-    }`;
+    cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
   })
   .catch((e) => {
     console.log(e);

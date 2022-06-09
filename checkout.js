@@ -1,5 +1,5 @@
 let cart = document.querySelector("#count");
-cart.innerText = `count: ${JSON.parse(localStorage.getItem("cart")).length}`;
+cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
 
 let cartData = JSON.parse(localStorage.getItem("cart"));
 
@@ -15,27 +15,27 @@ let leftSec = document.createElement("div");
 leftSec.className = "leftsec";
 mainSec.appendChild(leftSec);
 
-// cartData.sort((a, b) => {
-//   return a.id - b.id;
-// });
+cartData.sort((a, b) => {
+  return a.id - b.id;
+});
 
 // console.log("sorted", cartData);
 // console.log(cartData.length);
 // console.log(localStorage.length);
 let totalqty = 0;
 let grandTotal = 0;
-let length = cartData.length;
-for (let i = 0; i < length; i++) {
-  for (let j = i + 1; j < length; j++) {
-    if (cartData[i].id === cartData[j].id) {
-      //   cartData[i].price += cartData[i].price;
+// console.log(cartData);
+
+for (let i = 0; i < cartData.length; i++) {
+  for (let j = i + 1; j < cartData.length; j++) {
+    if (cartData[i].id === localStorage[j].id) {
+      cartData[i].price += cartData[i].price;
       cartData.splice(j, 1);
       i--;
     }
   }
 }
 
-console.log("result", cartData);
 // console.log(cartData.price);
 
 cartData.map((data, i) => {

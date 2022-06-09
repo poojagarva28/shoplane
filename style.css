@@ -10,7 +10,6 @@
 a {
   text-decoration: none;
 }
-
 .clothingcontainer,
 .accessoriescontainer {
   display: flex;
@@ -104,5 +103,48 @@ h6 {
   .box {
     min-width: 100%;
     margin: 15px 0px 10px;
+  }
+}
+
+/* slider */
+.slick-slide {
+  width: 100%;
+  margin: 0 80px;
+}
+
+.slick-dots {
+  list-style-type: none;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.slick-dots li {
+  display: inline-block;
+}
+
+.slick-dots button {
+  display: inline-block;
+  font-size: 0px;
+  color: #ccc;
+  background-color: #ccc;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 0;
+  margin-left: 6px;
+  margin-right: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+.slick-active button {
+  background-color: #aaa;
+}
+
+@media (max-width: 480px) {
+  .slick-slide {
+    margin: 0px;
   }
 }

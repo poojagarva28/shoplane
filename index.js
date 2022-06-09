@@ -1,21 +1,31 @@
 let productList = fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/product");
-// section for clothing
-const clothing = document.createElement("h2");
-clothing.innerHTML = "Clothing For Men and Women";
-document.body.appendChild(clothing);
-
-const clothingContainer = document.createElement("div");
-clothingContainer.classList.add("clothingcontainer");
-document.body.appendChild(clothingContainer);
 
 // section for accessories
 const accessories = document.createElement("h2");
 accessories.innerHTML = "Accessories For Men and Women";
-document.body.appendChild(accessories);
+accessories.id = "accessoriessec";
 
 const accessoriesContainer = document.createElement("div");
 accessoriesContainer.classList.add("accessoriescontainer");
-document.body.appendChild(accessoriesContainer);
+
+// section for clothing
+const clothing = document.createElement("h2");
+clothing.innerHTML = "Clothing For Men and Women";
+clothing.id = "clothingsec";
+
+const clothingContainer = document.createElement("div");
+clothingContainer.classList.add("clothingcontainer");
+
+const mainContent = document.querySelector("#maincontent");
+
+mainContent.append(accessoriesContainer);
+mainContent.prepend(accessories);
+mainContent.prepend(clothingContainer);
+mainContent.prepend(clothing);
+
+let cart = document.querySelector("#count");
+cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+console.log(cart);
 
 // fetching data from api
 
@@ -72,11 +82,9 @@ productList
         productDescription.appendChild(productPrice);
       }
     });
-    let cart = document.querySelector("#count");
-    cart.innerText = `count: ${
-      JSON.parse(localStorage.getItem("cart")).length
-    }`;
   })
   .catch((e) => {
     console.log(e);
   });
+
+// hash
