@@ -43,16 +43,22 @@ let description = document.createElement("p");
 let previewLabel = document.createElement("h3");
 let button = document.createElement("button");
 
-let count = 0;
+const localData = JSON.parse(localStorage.getItem("cart"));
+
+let totalCartitems = 0;
+if (JSON.parse(localStorage.getItem("cart")) !== null) {
+  for (let i = 0; i < localData.length; i++) {
+    totalCartitems += localData[i].quantity;
+  }
+}
+// console.log(totalCartitems);
+
+// let count = 0;
 productData
   .then((resp) => resp.json())
   .then((productData, i) => {
     //fetching content
     // right section
-
-    // console.log(productData);
-    productData.quantity = 1;
-    console.log(productData);
     h2.innerText = productData.name;
     brand.innerText = productData.brand;
     priceLabel.innerText = `Price: Rs `;
@@ -101,49 +107,43 @@ productData
     rightsec.appendChild(imgContainer);
     rightsec.appendChild(button);
     let cart = document.querySelector("#count");
-    // cart.innerText = `count: ${count}`;
-    // var army = ["Marcos", "DeltaForce", "Seals", "SWAT", "HeadHunters"];
-
-    // if (army.indexOf("Marcos") !== -1) {
-    //   alert("Yes, the value exists!");
-    // } else {
-    //   alert("No, the value is absent.");
-    // }
 
     let productPrice = productData.price;
-    console.log(productPrice);
+    if (productData.quantity == null) {
+      productData.quantity = 1;
+    } else {
+      productData.quantity += 1;
+    }
 
     button.addEventListener("click", () => {
       if (JSON.parse(localStorage.getItem("cart")) == null) {
-        cartItem.push(productData);
+        cart.innerText = 0;
       } else {
         if (
           JSON.parse(localStorage.getItem("cart")).some(
             (object) => object.id === productData.id
           )
         ) {
-          console.log(true);
+          console.log(productData.id);
           productData.quantity += 1;
-          productData.price += productPrice;
           console.log(productData.quantity);
+          productData.price += productPrice;
         } else {
           cartItem.push(productData);
         }
+        totalCartitems += 1;
+        cart.innerText = totalCartitems;
       }
 
-      count++;
+      // count++;
       //   console.log(cartItem);
       localStorage.setItem("cart", JSON.stringify(cartItem));
-      if (JSON.parse(localStorage.getItem("cart")) == null) {
-        cart.innerText = 0;
-      } else {
-        cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
-      }
     });
+
     if (JSON.parse(localStorage.getItem("cart")) == null) {
       cart.innerText = 0;
     } else {
-      cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+      cart.innerText = totalCartitems;
     }
   })
   .catch((e) => {

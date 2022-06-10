@@ -23,15 +23,24 @@ mainContent.prepend(accessories);
 mainContent.prepend(clothingContainer);
 mainContent.prepend(clothing);
 
+const localData = JSON.parse(localStorage.getItem("cart"));
+let totalCartitems = 0;
+
+if (JSON.parse(localStorage.getItem("cart")) !== null) {
+  for (let i = 0; i < localData.length; i++) {
+    totalCartitems += localData[i].quantity;
+  }
+}
+
 let cart = document.querySelector("#count");
-console.log(JSON.parse(localStorage.getItem("cart")) == null);
+// console.log(JSON.parse(localStorage.getItem("cart")) == null);
 if (JSON.parse(localStorage.getItem("cart")) == null) {
   cart.innerText = 0;
 } else {
-  cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+  cart.innerText = totalCartitems;
 }
 
-console.log(cart);
+// console.log(cart);
 
 // fetching data from api
 
