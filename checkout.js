@@ -3,13 +3,14 @@ cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
 
 let cartData = JSON.parse(localStorage.getItem("cart"));
 
-let h2 = document.createElement("h2");
-h2.innerText = "Checkout";
-document.body.appendChild(h2);
-
 let mainSec = document.createElement("div");
 mainSec.className = "mainsec";
-document.body.appendChild(mainSec);
+let sectionOuter = document.querySelector(".sectionouter");
+
+let h2 = document.createElement("h2");
+h2.innerText = "Checkout";
+sectionOuter.appendChild(h2);
+sectionOuter.appendChild(mainSec);
 
 let leftSec = document.createElement("div");
 leftSec.className = "leftsec";
@@ -18,26 +19,7 @@ mainSec.appendChild(leftSec);
 cartData.sort((a, b) => {
   return a.id - b.id;
 });
-
-// console.log("sorted", cartData);
-// console.log(cartData.length);
-// console.log(localStorage.length);
-let totalqty = 0;
 let grandTotal = 0;
-// console.log(cartData);
-
-for (let i = 0; i < cartData.length; i++) {
-  for (let j = i + 1; j < cartData.length; j++) {
-    if (cartData[i].id === localStorage[j].id) {
-      cartData[i].price += cartData[i].price;
-      cartData.splice(j, 1);
-      i--;
-    }
-  }
-}
-
-// console.log(cartData.price);
-
 cartData.map((data, i) => {
   //   console.log(data.id);
   console.log(cartData[data.id] === cartData[data.id + 1]);
@@ -54,7 +36,7 @@ cartData.map((data, i) => {
   h4.innerText = data.name;
 
   let qty = document.createElement("span");
-  qty.innerText = totalqty;
+  qty.innerText = data.quantity;
 
   let amount = document.createElement("h5");
   amount.innerText = data.price;

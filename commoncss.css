@@ -2,6 +2,7 @@
 header {
   margin-bottom: 150px;
 }
+
 #topbar {
   width: 100%;
   box-shadow: 0 2px 5px #ccc;
@@ -25,6 +26,9 @@ header {
   align-items: center;
 }
 
+#logo .fa-bars {
+  display: none;
+}
 #logo > a {
   text-decoration: none;
   color: black;
@@ -44,7 +48,10 @@ header {
   font-family: "Open Sans", sans-serif !important;
 }
 
-#left-menu > a {
+#pagelinks {
+  margin-left: -100px;
+}
+#pagelinks > a {
   text-decoration: none;
   color: black;
   margin-left: 32px;
@@ -189,6 +196,68 @@ footer p {
 
 @media (max-width: 480px) {
   header {
-    margin-bottom: 100px;
+    margin-bottom: 80px;
+  }
+  #logo .fa-bars {
+    display: initial;
+  }
+  #topbar,
+  #left-menu {
+    flex-direction: column;
+  }
+  #topbar {
+    justify-content: flex-start;
+    align-items: self-start;
+    padding: 16px 15px;
+  }
+
+  #right-menu {
+    position: absolute;
+    right: 20px;
+  }
+
+  #logo .fa {
+    margin-right: 10px;
+    margin-left: 0px;
+  }
+  #pagelinks {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    margin: 30px 0px 15px;
+  }
+  #pagelinks a {
+    margin: 10px 0px;
+  }
+  #search-wrapper {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+  #search-wrapper > i {
+    right: 15px;
+    left: unset;
+  }
+  #search-box {
+    padding-left: 15px;
+  }
+  #pagelinks,
+  #search-wrapper {
+    display: none;
+    animation: baranimation 0.5s ease-in;
+  }
+  @keyframes baranimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  #edyoda-projects-logo {
+    right: 15px;
+    bottom: 15px;
+    width: 70px;
   }
 }

@@ -24,7 +24,13 @@ mainContent.prepend(clothingContainer);
 mainContent.prepend(clothing);
 
 let cart = document.querySelector("#count");
-cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+console.log(JSON.parse(localStorage.getItem("cart")) == null);
+if (JSON.parse(localStorage.getItem("cart")) == null) {
+  cart.innerText = 0;
+} else {
+  cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+}
+
 console.log(cart);
 
 // fetching data from api
@@ -86,5 +92,3 @@ productList
   .catch((e) => {
     console.log(e);
   });
-
-// hash

@@ -51,7 +51,8 @@ productData
     // right section
 
     // console.log(productData);
-
+    productData.quantity = 1;
+    console.log(productData);
     h2.innerText = productData.name;
     brand.innerText = productData.brand;
     priceLabel.innerText = `Price: Rs `;
@@ -101,7 +102,6 @@ productData
     rightsec.appendChild(button);
     let cart = document.querySelector("#count");
     // cart.innerText = `count: ${count}`;
-    productData.qty = count;
     // var army = ["Marcos", "DeltaForce", "Seals", "SWAT", "HeadHunters"];
 
     // if (army.indexOf("Marcos") !== -1) {
@@ -110,23 +110,41 @@ productData
     //   alert("No, the value is absent.");
     // }
 
+    let productPrice = productData.price;
+    console.log(productPrice);
+
     button.addEventListener("click", () => {
-      // console.log(JSON.parse(localStorage.getItem("cart")));
-      // console.log(productData);
-      // console.log(
-      //   JSON.parse(localStorage.getItem("cart")).includes(productData)
-      // );
-      cartItem.push(productData);
-      console.log(productData);
+      if (JSON.parse(localStorage.getItem("cart")) == null) {
+        cartItem.push(productData);
+      } else {
+        if (
+          JSON.parse(localStorage.getItem("cart")).some(
+            (object) => object.id === productData.id
+          )
+        ) {
+          console.log(true);
+          productData.quantity += 1;
+          productData.price += productPrice;
+          console.log(productData.quantity);
+        } else {
+          cartItem.push(productData);
+        }
+      }
 
       count++;
       //   console.log(cartItem);
       localStorage.setItem("cart", JSON.stringify(cartItem));
-      cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
-      //   productData.qty = count;
-      console.log(JSON.parse(localStorage.getItem("cart")));
+      if (JSON.parse(localStorage.getItem("cart")) == null) {
+        cart.innerText = 0;
+      } else {
+        cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+      }
     });
-    cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+    if (JSON.parse(localStorage.getItem("cart")) == null) {
+      cart.innerText = 0;
+    } else {
+      cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
+    }
   })
   .catch((e) => {
     console.log(e);

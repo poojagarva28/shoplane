@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <!-- <script src="https://kit.fontawesome.com/35c398e458.js"></script> -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -27,6 +26,7 @@
     />
     <link rel="stylesheet" href="commoncss.css" type="text/css" />
     <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="thankyou.css" type="text/css" />
   </head>
   <body>
     <header>
@@ -38,8 +38,8 @@
           </div>
         </div>
         <div id="pagelinks">
-          <a href="#clothingsec" id="clothinglink">Clothing</a>
-          <a href="#accessoriessec" id="accessorieslink">Accessories</a>
+          <a href="index.html#clothingsec" id="clothinglink">Clothing</a>
+          <a href="index.html#accessoriessec" id="accessorieslink">Accessories</a>
         </div>
 
         <div id="search-wrapper">
@@ -66,17 +66,15 @@
     </header>
     <section>
       <div class="center">
-        <img src="./img/1.png" />
-        <img src="./img/2.png" />
-        <img src="./img/3.png" />
-        <img src="./img/4.png" />
+        <i class="fa fa-check" aria-hidden="true"></i>
+        <h1>Order Placed Successfully!!</h1>
+        <p>We have sent you an email with the order details</p>
       </div>
     </section>
     <div id="maincontent"></div>
     <img
       id="edyoda-projects-logo"
-      src="./img/edyoda.png"
-      alt="EdYoda Projects Logo"
+      src="./img/edyoda.png"      alt="EdYoda Projects Logo"
     />
     <footer>
       <div>
@@ -117,52 +115,13 @@
       </div>
     </footer>
     <script src="commonjs.js"></script>
-    <script src="index.js"></script>
     <script>
-      var hash = window.location.hash;
-      if (hash === "#clothingsec") {
-        $("html, body").animate({ scrollTop: $(hash).offset().top + 200 });
+      let cart = document.querySelector("#count");
+      console.log(JSON.parse(localStorage.getItem("cart")) == null);
+      if (JSON.parse(localStorage.getItem("cart")) == null) {
+        cart.innerText = 0;
+      } else {
+        cart.innerText = JSON.parse(localStorage.getItem("cart")).length;
       }
-      if (hash === "#accessoriessec") {
-        $("html, body").animate({ scrollTop: $(hash).offset().top + 650 });
-      }
-
-      $("#accessorieslink").click(function () {
-        $("html, body").animate(
-          {
-            scrollTop: $("#accessoriessec").offset().top - 150,
-          },
-          700
-        );
-        console.log($(hash).offset());
-      });
-
-      $("#clothinglink").click(function () {
-        $("html, body").animate(
-          {
-            scrollTop: $("#clothingsec").offset().top - 150,
-          },
-          700
-        );
-        console.log($(hash).offset());
-      });
     </script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
-      integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script>
-      $(document).ready(function () {
-        $(".center").slick({
-          dots: true,
-          arrows: false,
-          autoplay: true,
-          infinite: true,
-          autoplaySpeed: 4000,
-        });
-      });
-    </script>
-  </body>
 </html>
