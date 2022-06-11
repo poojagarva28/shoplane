@@ -9,6 +9,9 @@ let sectionOuter = document.querySelector(".sectionouter");
 let h2 = document.createElement("h2");
 h2.innerText = "Checkout";
 
+const totalItems = document.createElement("h4");
+totalItems.innerText = "Total Items: " + cartData.length;
+
 let leftSec = document.createElement("div");
 leftSec.className = "leftsec";
 
@@ -33,6 +36,7 @@ if (JSON.parse(localStorage.getItem("cart")) == null) {
 } else {
   cart.innerText = totalCartitems;
   sectionOuter.appendChild(h2);
+  sectionOuter.appendChild(totalItems);
   mainSec.appendChild(leftSec);
   sectionOuter.appendChild(mainSec);
   let grandTotal = 0;
@@ -57,7 +61,7 @@ if (JSON.parse(localStorage.getItem("cart")) == null) {
     let amount = document.createElement("h5");
     amount.innerText = "Amount: Rs " + data.price;
 
-    grandTotal += data.price;
+    grandTotal += data.price * data.quantity;
 
     checkoutBox.appendChild(checkoutImg);
     checkoutDesc.appendChild(h4);
@@ -73,7 +77,40 @@ if (JSON.parse(localStorage.getItem("cart")) == null) {
   let amountHeading = document.createElement("h2");
   amountHeading.innerText = "Total Amout";
 
+  let buttonOuter = document.createElement("div");
+  buttonOuter.className = "placeorderbtnouter";
+
+  let placeorderBtn = document.createElement("button");
+  placeorderBtn.id = "placeorderbtn";
+  placeorderBtn.innerText = "Place Order";
+
+  let br = document.createElement("br");
+
   rightSec.appendChild(amountHeading);
-  rightSec.append(grandTotal);
+  rightSec.append("Rs. " + grandTotal);
+  buttonOuter.appendChild(placeorderBtn);
+  rightSec.appendChild(buttonOuter);
   mainSec.appendChild(rightSec);
+  placeorderBtn.addEventListener("click", function () {
+    console.log(JSON.parse(localStorage.getItem("cart")));
+    fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(localStorage.getItem("cart")),
+      // body: JSON.stringify({
+      //   createdAt: "2022-05-24T15:22:18.473Z",
+      //   name: "Thelma Bogisich IVasdfasdfasdf",
+      //   avatar:
+      //     "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/402.jpg",
+      //   id: "100",
+      //   "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]":
+      //     "",
+      // }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => {
+        console.log(e);
+      });
+  });
 }

@@ -126,7 +126,10 @@ productData
         ) {
           console.log(productData.id);
           productData.quantity += 1;
-          console.log(productData.quantity);
+
+          let updateQty = JSON.parse(localStorage.getItem("cart"));
+          console.log(updateQty);
+
           productData.price += productPrice;
         } else {
           cartItem.push(productData);
