@@ -10,7 +10,6 @@ let h2 = document.createElement("h2");
 h2.innerText = "Checkout";
 
 const totalItems = document.createElement("h4");
-totalItems.innerText = "Total Items: " + cartData.length;
 
 let leftSec = document.createElement("div");
 leftSec.className = "leftsec";
@@ -24,6 +23,7 @@ let totalCartitems = 0;
 if (JSON.parse(localStorage.getItem("cart")) !== null) {
   for (let i = 0; i < localData.length; i++) {
     totalCartitems += localData[i].quantity;
+    totalItems.innerText = "Total Items: " + cartData.length;
   }
 }
 if (JSON.parse(localStorage.getItem("cart")) == null) {
@@ -92,25 +92,43 @@ if (JSON.parse(localStorage.getItem("cart")) == null) {
   rightSec.appendChild(buttonOuter);
   mainSec.appendChild(rightSec);
   placeorderBtn.addEventListener("click", function () {
-    console.log(JSON.parse(localStorage.getItem("cart")));
-    fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/order", {
+    var orderItems = [];
+    let localLength = JSON.parse(localStorage.getItem("cart")).length;
+    for (var i = 0; i < localLength; i++) {
+      var productObj = {
+        id: `${JSON.parse(localStorage.getItem("cart"))[i].id}`,
+        brand: `${JSON.parse(localStorage.getItem("cart"))[i].brand}`,
+        preview: `${JSON.parse(localStorage.getItem("cart"))[i].preview}`,
+        name: `${JSON.parse(localStorage.getItem("cart"))[i].name}`,
+        price: `${JSON.parse(localStorage.getItem("cart"))[i].price}`,
+        isAccessory: `${
+          JSON.parse(localStorage.getItem("cart"))[i].isAccessory
+        }`,
+      };
+
+      orderItems.push(productObj);
+    }
+
+    let sendObj = {
+      totalItems: cartData.length,
+      amount: grandTotal,
+      products: orderItems,
+    };
+
+    const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(localStorage.getItem("cart")),
-      // body: JSON.stringify({
-      //   createdAt: "2022-05-24T15:22:18.473Z",
-      //   name: "Thelma Bogisich IVasdfasdfasdf",
-      //   avatar:
-      //     "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/402.jpg",
-      //   id: "100",
-      //   "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]":
-      //     "",
-      // }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((e) => {
-        console.log(e);
-      });
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendObj),
+    };
+
+    fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/order", requestOptions)
+      // .then((response) => response.json())
+      .then((resp) => {
+        console.log("data:", resp);
+        window.location.pathname = "/thankyou.html";
+      })
+      .catch((err) => console.log(err));
   });
 }

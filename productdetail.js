@@ -127,12 +127,11 @@ productData
           console.log(productData.id);
           productData.quantity += 1;
 
-          let updateQty = JSON.parse(localStorage.getItem("cart"));
-          console.log(updateQty);
-
           productData.price += productPrice;
         } else {
+          // productData.quantity += 1;
           cartItem.push(productData);
+          // cart.innerText = totalCartitems;
         }
         totalCartitems += 1;
         cart.innerText = totalCartitems;

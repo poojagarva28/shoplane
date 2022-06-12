@@ -69,6 +69,7 @@ h4 {
   text-align: center;
   font-weight: 500;
   line-height: 40px;
+  margin-left: 0px !important;
 }
 .placeorderbtnouter {
   margin-top: 35px;
