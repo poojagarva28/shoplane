@@ -6,12 +6,6 @@ let productData = fetch(
 );
 let cartItem;
 
-if (localStorage.getItem("cart") == null || localStorage.getItem == "") {
-  cartItem = [];
-} else {
-  cartItem = JSON.parse(localStorage.getItem("cart"));
-}
-
 let container = document.createElement("div");
 container.className = "container";
 
@@ -115,9 +109,23 @@ productData
       productData.quantity += 1;
     }
 
+    if (
+      localStorage.getItem("cart") == null ||
+      localStorage.getItem == "" ||
+      localStorage.length === 0
+    ) {
+      cartItem = [];
+    } else {
+      cartItem = JSON.parse(localStorage.getItem("cart"));
+    }
+
     button.addEventListener("click", () => {
       if (JSON.parse(localStorage.getItem("cart")) == null) {
         cart.innerText = 0;
+        // totalCartitems += 1;
+        cartItem.push(productData);
+        totalCartitems += 1;
+        cart.innerText = totalCartitems;
       } else {
         if (
           JSON.parse(localStorage.getItem("cart")).some(
@@ -126,12 +134,12 @@ productData
         ) {
           console.log(productData.id);
           productData.quantity += 1;
-
           productData.price += productPrice;
         } else {
           // productData.quantity += 1;
+
           cartItem.push(productData);
-          // cart.innerText = totalCartitems;
+          // cart.innerText = 1;
         }
         totalCartitems += 1;
         cart.innerText = totalCartitems;
