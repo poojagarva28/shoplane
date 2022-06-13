@@ -61,7 +61,7 @@ if (JSON.parse(localStorage.getItem("cart")) == null) {
     let amount = document.createElement("h5");
     amount.innerText = "Amount: Rs " + data.price;
 
-    grandTotal += data.price * data.quantity;
+    grandTotal += data.price;
 
     checkoutBox.appendChild(checkoutImg);
     checkoutDesc.appendChild(h4);
