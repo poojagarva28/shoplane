@@ -1,5 +1,4 @@
 let productID = window.location.search.replace(/\D/g, "");
-// console.log(productID);
 
 let productData = fetch(
   `https://5d76bf96515d1a0014085cf9.mockapi.io/product/${productID}`
@@ -45,7 +44,6 @@ if (JSON.parse(localStorage.getItem("cart")) !== null) {
     totalCartitems += localData[i].quantity;
   }
 }
-// console.log(totalCartitems);
 
 // let count = 0;
 productData
@@ -123,30 +121,38 @@ productData
       if (JSON.parse(localStorage.getItem("cart")) == null) {
         cart.innerText = 0;
         // totalCartitems += 1;
-        cartItem.push(productData);
         totalCartitems += 1;
         cart.innerText = totalCartitems;
+        cartItem.push(productData);
       } else {
         if (
           JSON.parse(localStorage.getItem("cart")).some(
             (object) => object.id === productData.id
           )
         ) {
-          console.log(productData.id);
-          productData.quantity += 1;
-          productData.price += productPrice;
-        } else {
           // productData.quantity += 1;
+          productData.price += productPrice;
+          console.log("qty:", productData.quantity);
+          console.log("price:", productData.price);
+          cartItem.map((item, i) => {
+            if (item.id === productID) {
+              console.log(i);
+              cartItem[i] = {
+                ...cartItem[i],
+                price: productData.price,
+                quantity: cartItem[i].quantity + 1,
+              };
+            }
+          });
 
+          localStorage.setItem("cart", JSON.stringify(cartItem));
+        } else {
           cartItem.push(productData);
-          // cart.innerText = 1;
         }
         totalCartitems += 1;
         cart.innerText = totalCartitems;
       }
-
       // count++;
-      //   console.log(cartItem);
       localStorage.setItem("cart", JSON.stringify(cartItem));
     });
 

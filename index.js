@@ -33,14 +33,11 @@ if (JSON.parse(localStorage.getItem("cart")) !== null) {
 }
 
 let cart = document.querySelector("#count");
-// console.log(JSON.parse(localStorage.getItem("cart")) == null);
 if (JSON.parse(localStorage.getItem("cart")) == null) {
   cart.innerText = 0;
 } else {
   cart.innerText = totalCartitems;
 }
-
-// console.log(cart);
 
 // fetching data from api
 
