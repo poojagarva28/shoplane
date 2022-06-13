@@ -42,7 +42,7 @@ if (JSON.parse(localStorage.getItem("cart")) == null) {
   let grandTotal = 0;
   cartData.map((data, i) => {
     //   console.log(data.id);
-    console.log(cartData[data.id] === cartData[data.id + 1]);
+    // console.log(cartData[data.id] === cartData[data.id + 1]);
     let checkoutBox = document.createElement("div");
     checkoutBox.className = "checkoutbox";
 

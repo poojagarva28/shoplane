@@ -120,7 +120,6 @@ productData
     button.addEventListener("click", () => {
       if (JSON.parse(localStorage.getItem("cart")) == null) {
         cart.innerText = 0;
-        // totalCartitems += 1;
         totalCartitems += 1;
         cart.innerText = totalCartitems;
         cartItem.push(productData);
@@ -131,15 +130,14 @@ productData
           )
         ) {
           // productData.quantity += 1;
-          productData.price += productPrice;
-          console.log("qty:", productData.quantity);
-          console.log("price:", productData.price);
+          // productData.price += productPrice;
+
           cartItem.map((item, i) => {
             if (item.id === productID) {
-              console.log(i);
+              // console.log(i);
               cartItem[i] = {
                 ...cartItem[i],
-                price: productData.price,
+                price: cartItem[i].price + parseInt(price.innerText),
                 quantity: cartItem[i].quantity + 1,
               };
             }
