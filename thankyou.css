@@ -16,3 +16,8 @@ p {
   margin-bottom: 40px;
   color: #fff;
 }
+@media (max-width: 480px) {
+  .center {
+    margin-top: 150px;
+  }
+}

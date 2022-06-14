@@ -101,4 +101,14 @@ h4 {
   .leftsec {
     width: 100%;
   }
+  .sectionouter > h2,
+  .sectionouter > h4 {
+    margin-left: 40px;
+  }
+  .sectionouter > h2 {
+    margin-top: 120px;
+  }
+  .sectionouter > h4 {
+    margin-bottom: 30px;
+  }
 }
